@@ -1,5 +1,5 @@
 #
-# Org Folders
+# Folders
 #
 
 # Development Folder

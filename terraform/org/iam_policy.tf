@@ -1,4 +1,7 @@
+#
 # IAM Policy and Audit Log default config
+#
+
 resource "google_organization_iam_policy" "org" {
   org_id      = data.google_organization.org.org_id
   policy_data = data.google_iam_policy.org.policy_data
@@ -30,8 +33,14 @@ data "google_iam_policy" "org" {
   }
 
   binding {
-    role = "roles/orgpolicy.policyAdmin"
+    role = "roles/essentialcontacts.admin"
+    members = [
+      "user:admin@test.lukwam.dev",
+    ]
+  }
 
+  binding {
+    role = "roles/orgpolicy.policyAdmin"
     members = [
       # "group:gcp-organization-admins@lukwam.dev",
       # "group:gcp-security-admins@lukwam.dev",

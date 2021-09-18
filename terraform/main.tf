@@ -19,6 +19,11 @@ provider "google" {
   # project     = var.terraform_project_id
 }
 
+module "billing" {
+  source                       = "./billing"
+  billing_account_display_name = var.billing_account_display_name
+}
+
 module "org" {
   source      = "./org"
   admin_user  = var.admin_user
@@ -29,6 +34,9 @@ module "org" {
 }
 
 # Outputs
+output "billing_account_name" {
+  value = module.billing.billing_account_name
+}
 output "customer_id" {
   value = module.org.customer_id
 }
