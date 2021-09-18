@@ -35,7 +35,9 @@ module "org" {
 
 module "terraform-project" {
   source          = "./terraform-project"
+  admin_user      = var.admin_user
   billing_account = module.billing.billing_account_name
+  domain_name     = var.domain_name
   folder_id       = module.org.production_folder_id
   project_id      = var.tf_project_id
   project_name    = var.tf_project_name
