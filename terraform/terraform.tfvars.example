@@ -1,3 +1,4 @@
 # Organization settings
 admin_user      = "admin"
 domain_name     = "test.example.com"
+org_contact     = "my.email@gmail.com"

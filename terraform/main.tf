@@ -28,15 +28,16 @@ module "org" {
   # project_id  = var.terraform_project_id
 }
 
-variable "admin_user" {
-  default = "admin"
-}
-variable "domain_name" {}
-
 # Outputs
 output "customer_id" {
   value = module.org.customer_id
 }
 output "organization_id" {
   value = module.org.organization_id
+}
+output "folder_development" {
+  value = module.org.development_folder_name
+}
+output "folder_production" {
+  value = module.org.production_folder_name
 }

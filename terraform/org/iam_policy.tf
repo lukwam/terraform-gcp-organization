@@ -30,6 +30,23 @@ data "google_iam_policy" "org" {
   }
 
   binding {
+    role = "roles/orgpolicy.policyAdmin"
+
+    members = [
+      # "group:gcp-organization-admins@lukwam.dev",
+      # "group:gcp-security-admins@lukwam.dev",
+      "user:admin@test.lukwam.dev",
+    ]
+  }
+
+  binding {
+    role = "roles/resourcemanager.folderAdmin"
+    members = [
+      "user:${var.admin_user}@${var.domain_name}",
+    ]
+  }
+
+  binding {
     role = "roles/resourcemanager.organizationAdmin"
     members = [
       "user:${var.admin_user}@${var.domain_name}",
