@@ -33,6 +33,14 @@ module "org" {
   # project_id  = var.terraform_project_id
 }
 
+module "terraform-project" {
+  source          = "./terraform-project"
+  billing_account = module.billing.billing_account_name
+  folder_id       = module.org.production_folder_id
+  project_id      = var.tf_project_id
+  project_name    = var.tf_project_name
+}
+
 # Outputs
 output "billing_account_name" {
   value = module.billing.billing_account_name
@@ -44,8 +52,8 @@ output "organization_id" {
   value = module.org.organization_id
 }
 output "folder_development" {
-  value = module.org.development_folder_name
+  value = module.org.development_folder_id
 }
 output "folder_production" {
-  value = module.org.production_folder_name
+  value = module.org.production_folder_id
 }
