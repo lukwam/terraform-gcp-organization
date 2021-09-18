@@ -1,0 +1,3 @@
+# Organization settings
+admin_user      = "admin"
+domain_name     = "test.example.com"
