@@ -35,6 +35,7 @@ data "google_iam_policy" "org" {
   binding {
     role = "roles/essentialcontacts.admin"
     members = [
+      "serviceAccount:terraform@${var.tf_project_id}.iam.gserviceaccount.com",
       "user:admin@test.lukwam.dev",
     ]
   }

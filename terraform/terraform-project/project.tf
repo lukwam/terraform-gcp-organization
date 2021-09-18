@@ -20,6 +20,7 @@ resource "google_project_service" "services" {
     "essentialcontacts.googleapis.com",
     "iam.googleapis.com",
     "logging.googleapis.com",
+    "secretmanager.googleapis.com",
     "serviceusage.googleapis.com",
     "storage-api.googleapis.com",
     "storage.googleapis.com",
@@ -28,12 +29,6 @@ resource "google_project_service" "services" {
   disable_dependent_services = true
   disable_on_destroy         = true
   project                    = google_project.project.project_id
-}
-
-resource "google_service_account" "terraform" {
-  account_id   = "terraform"
-  display_name = "Terraform Service Account"
-  project      = google_project.project.project_id
 }
 
 resource "google_project_iam_member" "terraform" {

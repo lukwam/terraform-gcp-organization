@@ -15,8 +15,16 @@ terraform {
 }
 
 provider "google" {
+  alias = "default"
   # credentials = file(var.credentials_file)
   # project     = var.terraform_project_id
+}
+
+provider "google" {
+  alias = "sa"
+  # credentials = file(var.credentials_file)
+  # project     = var.terraform_project_id
+  impersonate_service_account = "terraform@${var.tf_project_id}.iam.gserviceaccount.com"
 }
 
 module "billing" {
@@ -25,12 +33,15 @@ module "billing" {
 }
 
 module "org" {
-  source      = "./org"
-  admin_user  = var.admin_user
-  domain_name = var.domain_name
-  # groups      = var.groups
-  # org_viewers = var.org_viewers
-  # project_id  = var.terraform_project_id
+  source        = "./org"
+  admin_user    = var.admin_user
+  domain_name   = var.domain_name
+  org_contact   = var.org_contact
+  tf_project_id = var.tf_project_id
+  providers     = {
+    google      = google.default
+    google.sa   = google.sa
+  }
 }
 
 module "terraform-project" {
