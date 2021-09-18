@@ -6,6 +6,22 @@ resource "google_organization_iam_policy" "org" {
 
 data "google_iam_policy" "org" {
 
+  audit_config {
+    service = "allServices"
+
+    audit_log_configs {
+      log_type = "ADMIN_READ"
+    }
+
+    audit_log_configs {
+      log_type = "DATA_READ"
+    }
+
+    audit_log_configs {
+      log_type = "DATA_WRITE"
+    }
+  }
+
   binding {
     role = "roles/billing.creator"
     members = [
