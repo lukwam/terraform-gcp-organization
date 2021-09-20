@@ -1,5 +1,14 @@
 variable "billing_account" {}
 variable "domain_name" {}
+variable "east_private_ip_range" {}
+variable "east_public_ip_range" {}
+variable "east_region" {}
 variable "folder_id" {}
 variable "project_id" {}
 variable "project_name" {}
+variable "project_prefix" {}
+variable "vpc_network_name" {}
+variable "vpc_service_projects" {}
+variable "west_private_ip_range" {}
+variable "west_public_ip_range" {}
+variable "west_region" {}

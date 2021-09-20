@@ -28,7 +28,7 @@ provider "google" {
 }
 
 locals {
-  # generate project IDs for various service projects
+  # generate project IDs
   tf_project_id                 = "${var.project_prefix}-terraform"
   logging_nonprod_project_id    = "${var.project_prefix}-logging-nonprod"
   logging_prod_project_id       = "${var.project_prefix}-logging-prod"
@@ -92,21 +92,45 @@ module "monitoring-prod-project" {
 }
 
 module "vpc-host-nonprod-project" {
-  source          = "./vpc-host-project"
-  billing_account = module.billing.billing_account_name
-  domain_name     = var.domain_name
-  folder_id       = module.org.nonprod_folder_id
-  project_id      = local.vpc_host_nonprod_project_id
-  project_name    = "VPC Host - Non-Production"
+  source                = "./vpc-host-project"
+  billing_account       = module.billing.billing_account_name
+  domain_name           = var.domain_name
+  folder_id             = module.org.nonprod_folder_id
+  project_id            = local.vpc_host_nonprod_project_id
+  project_name          = "VPC Host - Non-Production"
+  project_prefix        = "${var.project_prefix}-nonprod"
+  vpc_network_name      = "${var.project_prefix}-shared-vpc-nonprod-1"
+  east_public_ip_range  = "10.1.0.0/24"
+  east_private_ip_range = "10.2.0.0/24"
+  east_region           = "us-east1"
+  west_public_ip_range  = "10.3.0.0/24"
+  west_private_ip_range = "10.4.0.0/24"
+  west_region           = "us-west1"
+  vpc_service_projects  = [
+    local.logging_nonprod_project_id,
+    local.monitoring_nonprod_project_id
+  ]
 }
 
 module "vpc-host-prod-project" {
-  source          = "./vpc-host-project"
-  billing_account = module.billing.billing_account_name
-  domain_name     = var.domain_name
-  folder_id       = module.org.prod_folder_id
-  project_id      = local.vpc_host_prod_project_id
-  project_name    = "VPC Host - Production"
+  source           = "./vpc-host-project"
+  billing_account  = module.billing.billing_account_name
+  domain_name      = var.domain_name
+  folder_id        = module.org.prod_folder_id
+  project_id       = local.vpc_host_prod_project_id
+  project_name     = "VPC Host - Production"
+  project_prefix        = "${var.project_prefix}-prod"
+  vpc_network_name = "${var.project_prefix}-shared-vpc-prod-1"
+  east_public_ip_range  = "10.1.0.0/24"
+  east_private_ip_range = "10.2.0.0/24"
+  east_region           = "us-east1"
+  west_public_ip_range  = "10.3.0.0/24"
+  west_private_ip_range = "10.4.0.0/24"
+  west_region           = "us-west1"
+  vpc_service_projects  = [
+    local.logging_prod_project_id,
+    local.monitoring_prod_project_id
+  ]
 }
 
 module "terraform-project" {
