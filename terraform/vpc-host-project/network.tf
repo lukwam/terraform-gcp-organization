@@ -37,19 +37,3 @@ resource "google_compute_subnetwork" "west-public" {
   region                   = var.west_region
   network                  = google_compute_network.vpc.id
 }
-
-# data "google_iam_policy" "admin" {
-#   binding {
-#     role = "roles/compute.networkUser"
-#     members = [
-#       "user:jane@example.com",
-#     ]
-#   }
-# }
-
-# resource "google_compute_subnetwork_iam_policy" "policy" {
-#   project     = google_compute_subnetwork.east-private.project
-#   region      = google_compute_subnetwork.east-private.region
-#   subnetwork  = google_compute_subnetwork.east-private.name
-#   policy_data = data.google_iam_policy.admin.policy_data
-# }
