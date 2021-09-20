@@ -26,7 +26,7 @@ variable "groups" {
     },
     "terraform-admins": {
       "display_name": "terraform-admins",
-      "description": "Terraform administrators with access to terraform state bucket and secrets and permissions to create and manage resources."
+      "description": "Terraform administrators with access to manage terraform state and organizational resources."
     }
 }
 }

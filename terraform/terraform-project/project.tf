@@ -19,6 +19,7 @@ resource "google_project_service" "services" {
     "cloudresourcemanager.googleapis.com",
     "essentialcontacts.googleapis.com",
     "iam.googleapis.com",
+    "iap.googleapis.com",
     "logging.googleapis.com",
     "secretmanager.googleapis.com",
     "serviceusage.googleapis.com",
