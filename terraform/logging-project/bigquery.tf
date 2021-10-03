@@ -7,7 +7,7 @@ resource "google_bigquery_dataset" "logging_export" {
 
 resource "google_bigquery_dataset_iam_member" "logging_export_editor" {
   dataset_id = google_bigquery_dataset.logging_export.dataset_id
-  role       = "roles/editor"
+  role       = "roles/bigquery.dataEditor"
   member     = google_logging_folder_sink.all-audit-logs-to-bigquery.writer_identity
   project    = var.project_id
 }
