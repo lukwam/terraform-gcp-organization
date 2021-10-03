@@ -14,6 +14,7 @@ resource "google_project" "project" {
 
 resource "google_project_service" "services" {
   for_each = toset([
+    "bigquery.googleapis.com",
     "cloudbilling.googleapis.com",
     "cloudidentity.googleapis.com",
     "cloudresourcemanager.googleapis.com",
@@ -21,6 +22,7 @@ resource "google_project_service" "services" {
     "iam.googleapis.com",
     "iap.googleapis.com",
     "logging.googleapis.com",
+    "monitoring.googleapis.com",
     "secretmanager.googleapis.com",
     "serviceusage.googleapis.com",
     "storage-api.googleapis.com",

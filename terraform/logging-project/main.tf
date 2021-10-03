@@ -12,6 +12,16 @@ resource "google_project" "project" {
   skip_delete         = false
 }
 
+resource "google_project_service" "services" {
+  for_each = toset([
+    "bigquery.googleapis.com",
+  ])
+  service                    = each.key
+  disable_dependent_services = true
+  disable_on_destroy         = true
+  project                    = google_project.project.project_id
+}
+
 resource "google_project_iam_member" "project" {
   project = google_project.project.project_id
   role    = "roles/owner"

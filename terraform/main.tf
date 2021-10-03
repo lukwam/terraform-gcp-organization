@@ -28,7 +28,7 @@ provider "google" {
 }
 
 locals {
-  # generate project IDs
+  # project IDs
   tf_project_id                 = "${var.project_prefix}-terraform"
   logging_nonprod_project_id    = "${var.project_prefix}-logging-nonprod"
   logging_prod_project_id       = "${var.project_prefix}-logging-prod"
@@ -36,6 +36,9 @@ locals {
   monitoring_prod_project_id    = "${var.project_prefix}-monitoring-prod"
   vpc_host_nonprod_project_id   = "${var.project_prefix}-vpc-host-nonprod"
   vpc_host_prod_project_id      = "${var.project_prefix}-vpc-host-prod"
+  # bigquery dataset ids
+  logging_export_nonprod        = "${var.project_prefix}_logging_export_nonprod"
+  logging_export_prod           = "${var.project_prefix}_logging_export_prod"
 }
 
 module "billing" {
@@ -62,6 +65,7 @@ module "logging-nonprod-project" {
   folder_id       = module.org.nonprod_folder_id
   project_id      = local.logging_nonprod_project_id
   project_name    = "Logging - Non-Production"
+  logging_export  = local.logging_export_nonprod
 }
 
 module "logging-prod-project" {
@@ -71,6 +75,7 @@ module "logging-prod-project" {
   folder_id       = module.org.prod_folder_id
   project_id      = local.logging_prod_project_id
   project_name    = "Logging - Production"
+  logging_export  = local.logging_export_prod
 }
 
 module "monitoring-nonprod-project" {

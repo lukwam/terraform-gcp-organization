@@ -77,7 +77,17 @@ Items marked with "✅" are managed by this Terraform configuration.
 
 ### 9. Set up logging and monitoring
 1. Set up monitoring
+   * Enable `example-monitoring-nonprod` as a Stackdriver workspace
+   * Add nonprod projects to nonprod workspace
+   * Enable `example-monitoring-prod` as a Stackdriver workspace
+   * Add prod projects to prod workspace
 1. Set up logging
+   * Create BigQuery logging dataset for nonprod
+   * Create BigQuery logging dataset for prod
+   * Create Folder logging sink to BigQuery for nonprod
+   * Create Folder logging sink to BigQuery for prod
+   * Add nonprod sync logwriter as editor of nonprod dataset
+   * Add prod sync logwriter as editor of prod dataset
 
 ### 10. Configure security settings for apps and data
 1. Enable the Security Command Center dashboard
