@@ -81,31 +81,47 @@ Items marked with "✅" are managed by this Terraform configuration.
    * Add nonprod projects to nonprod workspace
    * Enable `example-monitoring-prod` as a Stackdriver workspace
    * Add prod projects to prod workspace
-1. Set up logging
-   * Create BigQuery logging dataset for nonprod
-   * Create BigQuery logging dataset for prod
-   * Create Folder logging sink to BigQuery for nonprod
-   * Create Folder logging sink to BigQuery for prod
-   * Add nonprod sync logwriter as editor of nonprod dataset
-   * Add prod sync logwriter as editor of prod dataset
+1. Set up logging ✅
+   * Enable Audit logs for all services ✅
+   * Create BigQuery logging dataset for nonprod ✅
+   * Create BigQuery logging dataset for prod ✅
+   * Create Folder logging sink to BigQuery for nonprod ✅
+   * Create Folder logging sink to BigQuery for prod ✅
+   * Add nonprod sync logwriter as editor of nonprod dataset ✅
+   * Add prod sync logwriter as editor of prod dataset ✅
 
 ### 10. Configure security settings for apps and data
 1. Enable the Security Command Center dashboard
-1. Set up Organization Policy
+   * Enable the Security Command Center
+   * Add org IAM roles for Security Command Cennter service account ✅
+1. Set up Organization Policy ✅
+   * Skip default network creation. ✅
+   * Set up the Domain restricted sharing constraint ✅
+   * Disable external IP address access for VM instances ✅
 
 ## Terraform Resources List
 
 This is a list of resources created by this terraform config:
 
 * `module.billing.data.google_billing_account.default`
+* `module.logging-nonprod-project.google_bigquery_dataset.logging_export`
+* `module.logging-nonprod-project.google_bigquery_dataset_iam_member.logging_export_editor`
+* `module.logging-nonprod-project.google_logging_folder_sink.all-audit-logs-to-bigquery`
 * `module.logging-nonprod-project.google_project.project`
 * `module.logging-nonprod-project.google_project_iam_member.project`
+* `module.logging-nonprod-project.google_project_service.services["bigquery.googleapis.com"]`
+* `module.logging-prod-project.google_bigquery_dataset.logging_export`
+* `module.logging-prod-project.google_bigquery_dataset_iam_member.logging_export_editor`
+* `module.logging-prod-project.google_logging_folder_sink.all-audit-logs-to-bigquery`
 * `module.logging-prod-project.google_project.project`
 * `module.logging-prod-project.google_project_iam_member.project`
+* `module.logging-prod-project.google_project_service.services["bigquery.googleapis.com"]`
 * `module.monitoring-nonprod-project.google_project.project`
 * `module.monitoring-nonprod-project.google_project_iam_member.project`
+* `module.monitoring-nonprod-project.google_project_service.services["monitoring.googleapis.com"]`
 * `module.monitoring-prod-project.google_project.project`
 * `module.monitoring-prod-project.google_project_iam_member.project`
+* `module.monitoring-prod-project.google_project_service.services["monitoring.googleapis.com"]`
 * `module.org.data.google_iam_policy.non-production-folder`
 * `module.org.data.google_iam_policy.org`
 * `module.org.data.google_iam_policy.production-folder`
@@ -125,14 +141,16 @@ This is a list of resources created by this terraform config:
 * `module.org.google_folder_iam_policy.non-production`
 * `module.org.google_folder_iam_policy.production`
 * `module.org.google_organization_iam_policy.org`
-* `module.org.google_organization_policy.compute_require_os_login`
 * `module.org.google_organization_policy.compute_skip_default_network_creation`
+* `module.org.google_organization_policy.compute_vm_external_ip_access`
+* `module.org.google_organization_policy.iam_allowed_policy_member_domains`
 * `module.terraform-project.data.google_iam_policy.admin-sa-user`
 * `module.terraform-project.data.google_iam_policy.terraform-bucket`
 * `module.terraform-project.google_iap_brand.project`
 * `module.terraform-project.google_project.project`
 * `module.terraform-project.google_project_iam_member.terraform["roles/owner"]`
 * `module.terraform-project.google_project_iam_member.terraform["roles/storage.admin"]`
+* `module.terraform-project.google_project_service.services["bigquery.googleapis.com"]`
 * `module.terraform-project.google_project_service.services["cloudbilling.googleapis.com"]`
 * `module.terraform-project.google_project_service.services["cloudidentity.googleapis.com"]`
 * `module.terraform-project.google_project_service.services["cloudresourcemanager.googleapis.com"]`
@@ -140,6 +158,7 @@ This is a list of resources created by this terraform config:
 * `module.terraform-project.google_project_service.services["iam.googleapis.com"]`
 * `module.terraform-project.google_project_service.services["iap.googleapis.com"]`
 * `module.terraform-project.google_project_service.services["logging.googleapis.com"]`
+* `module.terraform-project.google_project_service.services["monitoring.googleapis.com"]`
 * `module.terraform-project.google_project_service.services["secretmanager.googleapis.com"]`
 * `module.terraform-project.google_project_service.services["serviceusage.googleapis.com"]`
 * `module.terraform-project.google_project_service.services["storage-api.googleapis.com"]`
@@ -151,43 +170,43 @@ This is a list of resources created by this terraform config:
 * `module.terraform-project.google_service_account_key.terraform`
 * `module.terraform-project.google_storage_bucket.terraform`
 * `module.terraform-project.google_storage_bucket_iam_policy.terraform`
-* `module.vpc-host-nonprod-project.data.google_project.vpc_service_projects["example-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.data.google_project.vpc_service_projects["example-monitoring-nonprod"]`
+* `module.vpc-host-nonprod-project.data.google_project.vpc_service_projects["lukwamtest-logging-nonprod"]`
+* `module.vpc-host-nonprod-project.data.google_project.vpc_service_projects["lukwamtest-monitoring-nonprod"]`
 * `module.vpc-host-nonprod-project.google_compute_network.vpc`
 * `module.vpc-host-nonprod-project.google_compute_shared_vpc_host_project.host`
-* `module.vpc-host-nonprod-project.google_compute_shared_vpc_service_project.projects["example-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_shared_vpc_service_project.projects["example-monitoring-nonprod"]`
+* `module.vpc-host-nonprod-project.google_compute_shared_vpc_service_project.projects["lukwamtest-logging-nonprod"]`
+* `module.vpc-host-nonprod-project.google_compute_shared_vpc_service_project.projects["lukwamtest-monitoring-nonprod"]`
 * `module.vpc-host-nonprod-project.google_compute_subnetwork.east-private`
 * `module.vpc-host-nonprod-project.google_compute_subnetwork.east-public`
 * `module.vpc-host-nonprod-project.google_compute_subnetwork.west-private`
 * `module.vpc-host-nonprod-project.google_compute_subnetwork.west-public`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-private["example-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-private["example-monitoring-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-public["example-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-public["example-monitoring-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-private["example-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-private["example-monitoring-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-public["example-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-public["example-monitoring-nonprod"]`
+* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-private["lukwamtest-logging-nonprod"]`
+* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-private["lukwamtest-monitoring-nonprod"]`
+* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-public["lukwamtest-logging-nonprod"]`
+* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-public["lukwamtest-monitoring-nonprod"]`
+* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-private["lukwamtest-logging-nonprod"]`
+* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-private["lukwamtest-monitoring-nonprod"]`
+* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-public["lukwamtest-logging-nonprod"]`
+* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-public["lukwamtest-monitoring-nonprod"]`
 * `module.vpc-host-nonprod-project.google_project.project`
 * `module.vpc-host-nonprod-project.google_project_iam_member.project`
-* `module.vpc-host-prod-project.data.google_project.vpc_service_projects["example-logging-prod"]`
-* `module.vpc-host-prod-project.data.google_project.vpc_service_projects["example-monitoring-prod"]`
+* `module.vpc-host-prod-project.data.google_project.vpc_service_projects["lukwamtest-logging-prod"]`
+* `module.vpc-host-prod-project.data.google_project.vpc_service_projects["lukwamtest-monitoring-prod"]`
 * `module.vpc-host-prod-project.google_compute_network.vpc`
 * `module.vpc-host-prod-project.google_compute_shared_vpc_host_project.host`
-* `module.vpc-host-prod-project.google_compute_shared_vpc_service_project.projects["example-logging-prod"]`
-* `module.vpc-host-prod-project.google_compute_shared_vpc_service_project.projects["example-monitoring-prod"]`
+* `module.vpc-host-prod-project.google_compute_shared_vpc_service_project.projects["lukwamtest-logging-prod"]`
+* `module.vpc-host-prod-project.google_compute_shared_vpc_service_project.projects["lukwamtest-monitoring-prod"]`
 * `module.vpc-host-prod-project.google_compute_subnetwork.east-private`
 * `module.vpc-host-prod-project.google_compute_subnetwork.east-public`
 * `module.vpc-host-prod-project.google_compute_subnetwork.west-private`
 * `module.vpc-host-prod-project.google_compute_subnetwork.west-public`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-private["example-logging-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-private["example-monitoring-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-public["example-logging-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-public["example-monitoring-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-private["example-logging-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-private["example-monitoring-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-public["example-logging-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-public["example-monitoring-prod"]`
+* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-private["lukwamtest-logging-prod"]`
+* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-private["lukwamtest-monitoring-prod"]`
+* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-public["lukwamtest-logging-prod"]`
+* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-public["lukwamtest-monitoring-prod"]`
+* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-private["lukwamtest-logging-prod"]`
+* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-private["lukwamtest-monitoring-prod"]`
+* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-public["lukwamtest-logging-prod"]`
+* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-public["lukwamtest-monitoring-prod"]`
 * `module.vpc-host-prod-project.google_project.project`
 * `module.vpc-host-prod-project.google_project_iam_member.project`

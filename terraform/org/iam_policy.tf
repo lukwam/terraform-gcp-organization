@@ -55,6 +55,13 @@ data "google_iam_policy" "org" {
   }
 
   binding {
+    role = "roles/cloudfunctions.serviceAgent"
+    members = [
+      "serviceAccount:service-org-${data.google_organization.org.org_id}@security-center-api.iam.gserviceaccount.com",
+    ]
+  }
+
+  binding {
     role = "roles/cloudsupport.admin"
     members = [
       "group:gcp-organization-admins@${var.domain_name}",
@@ -209,18 +216,18 @@ data "google_iam_policy" "org" {
     ]
   }
 
-  # binding {
-  #   role = "roles/securitycenter.serviceAgent"
-  #   members = [
-  #     "serviceAccount:service-org-${data.google_organization.org.org_id}@security-center-api.iam.gserviceaccount.com",
-  #   ]
-  # }
+  binding {
+    role = "roles/securitycenter.serviceAgent"
+    members = [
+      "serviceAccount:service-org-${data.google_organization.org.org_id}@security-center-api.iam.gserviceaccount.com",
+    ]
+  }
 
-  # binding {
-  #   role = "roles/serviceusage.serviceUsageAdmin"
-  #   members = [
-  #     "serviceAccount:service-org-${data.google_organization.org.org_id}@security-center-api.iam.gserviceaccount.com",
-  #   ]
-  # }
+  binding {
+    role = "roles/serviceusage.serviceUsageAdmin"
+    members = [
+      "serviceAccount:service-org-${data.google_organization.org.org_id}@security-center-api.iam.gserviceaccount.com",
+    ]
+  }
 
 }
