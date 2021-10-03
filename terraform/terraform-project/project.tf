@@ -9,7 +9,7 @@ resource "google_project" "project" {
   }
 
   auto_create_network = false
-  skip_delete         = false
+  skip_delete         = true
 }
 
 resource "google_project_service" "services" {

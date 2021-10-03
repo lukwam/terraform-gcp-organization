@@ -28,8 +28,9 @@ variable "groups" {
       "display_name": "terraform-admins",
       "description": "Terraform administrators with access to manage terraform state and organizational resources."
     }
+  }
 }
-}
+
 resource "google_cloud_identity_group" "groups" {
   provider             = google.sa
   for_each             = var.groups
