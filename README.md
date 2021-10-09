@@ -6,7 +6,7 @@ Example Terraform Config for a Google Cloud Platform (GCP) Organization
 
 This terraform configuration is based off of the Google Cloud Platform checklist for setting up a new Organization.
 
-https://console.cloud.google.com/getting-started/enterprise
+https://console.cloud.google.com/cloud-setup/overview
 
 ## Installation
 
