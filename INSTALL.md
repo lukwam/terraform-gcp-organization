@@ -39,7 +39,7 @@ To set up a new **Cloud Identity** Organization, follow these steps:
 
 Now you are ready to start working with the Terraform config.
 
-## Clone the Repo
+## Cloning the Repo
 
 In this section, we will clone the repo from GitHub.
 
@@ -52,7 +52,7 @@ In this section, we will clone the repo from GitHub.
 1. Add the public key into your GitHub SSH keys: https://github.com/settings/keys
 1. Clone the repo in the Cloud Shell Terminal: `git clone git@github.com:lukwam/terraform-gcp-organization`
 
-## Configure Terraform
+## Configuring Terraform
 
 In this section, we will configure the `terraform.tfvars` file for your environment.
 
@@ -65,7 +65,7 @@ In this section, we will configure the `terraform.tfvars` file for your environm
 1. Enter an email address to set as the Organization Contact. Use the same email you used during the Cloud Identity setup (ex. `first.last@gmail.com`).
 1. Set the project prefix that will be used for all of your GCP projects (ex. `exampletest`).
 
-## Set Initial IAM Policy Bindings
+## Setting Initial IAM Policy Bindings
 
 Before you can run this config, you need to set some initial IAM policy bindings so you have enough permissions to apply the config to your new GCP Organization.
 
@@ -76,7 +76,7 @@ Before you can run this config, you need to set some initial IAM policy bindings
    * Add `Service Acccount Key Admin` - So that you can create a service account key
 1. Make sure that your Billing Account has sufficient quota to create at least `7` (seven) new GCP projects. More information about Billing Accounts and Project quotas is available here: https://support.google.com/cloud/answer/6330231?hl=en
 
-## Apply the Terraform Config
+## Applying the Terraform Config
 
 1. Initialize Terraform: `terraform init`
 1. To get started, run a targeted apply to verify the Biling Account permissions are set properly: `terraform apply -target module.billing`
@@ -86,13 +86,48 @@ Before you can run this config, you need to set some initial IAM policy bindings
 1. To create the Cloud Identity Groups that will be used to manage the Organization level permissions, run another targeted apply: `terraform apply -target module.org.google_cloud_identity_group.groups`
 1. Verify the resources that Terraform plans to create and then type `yes` and return to apply.
 1. Now, we can apply the rest of the Terraform config to create the other Org Level resources and the Logging and Monitoring projects. `terraform apply`
-1. If you get errros about Project notFound for some of the projects, you can run the command again. `terraform apply`
+1. If you get errors about Project notFound for some of the projects, you can run the apply command again until all resources are created successfully. `terraform apply`
 
+## Enabling the Security Command Center
 
+One of the steps that can not currently be done with Terraform is to enable the Security Command Center. 
 
+To do so, follow these steps:
 
+1. Go to: https://console.cloud.google.com/security/command-center and select your new organization.
+1. Click `NEXT` to select the free version of Security Command Center. 
+1. Click `NEXT` to enable Security Health Analytics.
+1. Instead of following the instructions on the "Grant Permissions" page, go back to your Cloud Shell and uncomment the three commented IAM bindings in the `terraform/org/iam_policy.tf` file.
+1. Run `terraform apply` to add the three additional permissions for the Security Command Center to the Org IAM Policy.
+1. Go back to the "Grant Permissions" page and click `TEST ACCOUNT` to verify that all the permissions applied successfully.
+1. Click `NEXT` to continue.
+1. Click `FINISH` to complete the Security Command Center setup.
 
+## Creating the VPC Host Projects
 
+Now that we have our Org setup and we've created the Terraform, Logging, and Monitoring projects, now we can proceed to complete the process by creating the VPC Host projects for Non-Production and Production.
 
+1. Uncomment the entries in the `terraform/main.tf` file for the VPC host projects, including `vpc-host-nonprod-project` and `vpc-host-prod-project`.
+1. Apply the Terraform config: `terraform apply`
+1. That's it!
 
+## Setting Up Monitoring
 
+Although there is a beta API available for managing Cloud Logging [metrics scopes](https://cloud.google.com/monitoring/settings/manage-api), there is not currently a Terraform resource for this. Metrics scopes are how you create a Stackdriver workspace and how you add additional projects to that workspace. 
+
+To setup a Monitoring workspace and to add the other projects to that workspace:
+
+1. Follow the directions in the Cloud Setup checklist for Monitoring: https://console.cloud.google.com/cloud-setup/monitoring
+
+## Setting Up Networking
+
+This Terraform config does not handle some of the Networking setup, including:
+
+* Configure connectivity between the external provider and GCP
+* Set up a path for external egress traffic
+* Implement network security controls
+* Choose an ingress traffic option
+
+To setup connectivity, egress, security controls and ingress:
+
+1. Follow the directions in the Cloud Setup checklist for Networking: https://console.cloud.google.com/cloud-setup/networking
