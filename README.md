@@ -8,6 +8,10 @@ This terraform configuration is based off of the Google Cloud Platform checklist
 
 https://console.cloud.google.com/getting-started/enterprise
 
+## Installation
+
+For detailed instructions on how to install this Terraform config, see [INSTALL.md](./INSTALL.md).
+
 ## Checklist
 
 Items marked with "✅" are managed by this Terraform configuration.
@@ -98,115 +102,3 @@ Items marked with "✅" are managed by this Terraform configuration.
    * Skip default network creation. ✅
    * Set up the Domain restricted sharing constraint ✅
    * Disable external IP address access for VM instances ✅
-
-## Terraform Resources List
-
-This is a list of resources created by this terraform config:
-
-* `module.billing.data.google_billing_account.default`
-* `module.logging-nonprod-project.google_bigquery_dataset.logging_export`
-* `module.logging-nonprod-project.google_bigquery_dataset_iam_member.logging_export_editor`
-* `module.logging-nonprod-project.google_logging_folder_sink.all-audit-logs-to-bigquery`
-* `module.logging-nonprod-project.google_project.project`
-* `module.logging-nonprod-project.google_project_iam_member.project`
-* `module.logging-nonprod-project.google_project_service.services["bigquery.googleapis.com"]`
-* `module.logging-prod-project.google_bigquery_dataset.logging_export`
-* `module.logging-prod-project.google_bigquery_dataset_iam_member.logging_export_editor`
-* `module.logging-prod-project.google_logging_folder_sink.all-audit-logs-to-bigquery`
-* `module.logging-prod-project.google_project.project`
-* `module.logging-prod-project.google_project_iam_member.project`
-* `module.logging-prod-project.google_project_service.services["bigquery.googleapis.com"]`
-* `module.monitoring-nonprod-project.google_project.project`
-* `module.monitoring-nonprod-project.google_project_iam_member.project`
-* `module.monitoring-nonprod-project.google_project_service.services["monitoring.googleapis.com"]`
-* `module.monitoring-prod-project.google_project.project`
-* `module.monitoring-prod-project.google_project_iam_member.project`
-* `module.monitoring-prod-project.google_project_service.services["monitoring.googleapis.com"]`
-* `module.org.data.google_iam_policy.non-production-folder`
-* `module.org.data.google_iam_policy.org`
-* `module.org.data.google_iam_policy.production-folder`
-* `module.org.data.google_organization.org`
-* `module.org.google_cloud_identity_group.groups["gcp-billing-admins"]`
-* `module.org.google_cloud_identity_group.groups["gcp-developers"]`
-* `module.org.google_cloud_identity_group.groups["gcp-devops"]`
-* `module.org.google_cloud_identity_group.groups["gcp-network-admins"]`
-* `module.org.google_cloud_identity_group.groups["gcp-organization-admins"]`
-* `module.org.google_cloud_identity_group.groups["gcp-security-admins"]`
-* `module.org.google_cloud_identity_group.groups["terraform-admins"]`
-* `module.org.google_essential_contacts_contact.org`
-* `module.org.google_folder.non-production`
-* `module.org.google_folder.non-production-shared`
-* `module.org.google_folder.production`
-* `module.org.google_folder.production-shared`
-* `module.org.google_folder_iam_policy.non-production`
-* `module.org.google_folder_iam_policy.production`
-* `module.org.google_organization_iam_policy.org`
-* `module.org.google_organization_policy.compute_skip_default_network_creation`
-* `module.org.google_organization_policy.compute_vm_external_ip_access`
-* `module.org.google_organization_policy.iam_allowed_policy_member_domains`
-* `module.terraform-project.data.google_iam_policy.admin-sa-user`
-* `module.terraform-project.data.google_iam_policy.terraform-bucket`
-* `module.terraform-project.google_iap_brand.project`
-* `module.terraform-project.google_project.project`
-* `module.terraform-project.google_project_iam_member.terraform["roles/owner"]`
-* `module.terraform-project.google_project_iam_member.terraform["roles/storage.admin"]`
-* `module.terraform-project.google_project_service.services["bigquery.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["cloudbilling.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["cloudidentity.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["cloudresourcemanager.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["essentialcontacts.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["iam.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["iap.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["logging.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["monitoring.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["secretmanager.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["serviceusage.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["storage-api.googleapis.com"]`
-* `module.terraform-project.google_project_service.services["storage.googleapis.com"]`
-* `module.terraform-project.google_secret_manager_secret.service-account-key`
-* `module.terraform-project.google_secret_manager_secret_version.service-account-key`
-* `module.terraform-project.google_service_account.terraform`
-* `module.terraform-project.google_service_account_iam_policy.admin-account-iam`
-* `module.terraform-project.google_service_account_key.terraform`
-* `module.terraform-project.google_storage_bucket.terraform`
-* `module.terraform-project.google_storage_bucket_iam_policy.terraform`
-* `module.vpc-host-nonprod-project.data.google_project.vpc_service_projects["lukwamtest-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.data.google_project.vpc_service_projects["lukwamtest-monitoring-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_network.vpc`
-* `module.vpc-host-nonprod-project.google_compute_shared_vpc_host_project.host`
-* `module.vpc-host-nonprod-project.google_compute_shared_vpc_service_project.projects["lukwamtest-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_shared_vpc_service_project.projects["lukwamtest-monitoring-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork.east-private`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork.east-public`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork.west-private`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork.west-public`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-private["lukwamtest-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-private["lukwamtest-monitoring-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-public["lukwamtest-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-east-public["lukwamtest-monitoring-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-private["lukwamtest-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-private["lukwamtest-monitoring-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-public["lukwamtest-logging-nonprod"]`
-* `module.vpc-host-nonprod-project.google_compute_subnetwork_iam_member.projects-west-public["lukwamtest-monitoring-nonprod"]`
-* `module.vpc-host-nonprod-project.google_project.project`
-* `module.vpc-host-nonprod-project.google_project_iam_member.project`
-* `module.vpc-host-prod-project.data.google_project.vpc_service_projects["lukwamtest-logging-prod"]`
-* `module.vpc-host-prod-project.data.google_project.vpc_service_projects["lukwamtest-monitoring-prod"]`
-* `module.vpc-host-prod-project.google_compute_network.vpc`
-* `module.vpc-host-prod-project.google_compute_shared_vpc_host_project.host`
-* `module.vpc-host-prod-project.google_compute_shared_vpc_service_project.projects["lukwamtest-logging-prod"]`
-* `module.vpc-host-prod-project.google_compute_shared_vpc_service_project.projects["lukwamtest-monitoring-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork.east-private`
-* `module.vpc-host-prod-project.google_compute_subnetwork.east-public`
-* `module.vpc-host-prod-project.google_compute_subnetwork.west-private`
-* `module.vpc-host-prod-project.google_compute_subnetwork.west-public`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-private["lukwamtest-logging-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-private["lukwamtest-monitoring-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-public["lukwamtest-logging-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-east-public["lukwamtest-monitoring-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-private["lukwamtest-logging-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-private["lukwamtest-monitoring-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-public["lukwamtest-logging-prod"]`
-* `module.vpc-host-prod-project.google_compute_subnetwork_iam_member.projects-west-public["lukwamtest-monitoring-prod"]`
-* `module.vpc-host-prod-project.google_project.project`
-* `module.vpc-host-prod-project.google_project_iam_member.project`
