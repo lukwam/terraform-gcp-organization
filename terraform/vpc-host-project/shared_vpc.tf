@@ -1,5 +1,5 @@
 resource "google_compute_shared_vpc_host_project" "host" {
-  project = var.project_id
+  project = google_project.project.project_id
 }
 
 resource "google_compute_shared_vpc_service_project" "projects" {
@@ -15,7 +15,7 @@ data "google_project" "vpc_service_projects" {
 
 resource "google_compute_subnetwork_iam_member" "projects-east-private" {
   for_each   = toset(var.vpc_service_projects)
-  project    = var.project_id
+  project    = google_project.project.project_id
   region     = var.east_region
   subnetwork = google_compute_subnetwork.east-private.name
   role       = "roles/compute.networkUser"
@@ -24,7 +24,7 @@ resource "google_compute_subnetwork_iam_member" "projects-east-private" {
 
 resource "google_compute_subnetwork_iam_member" "projects-east-public" {
   for_each   = toset(var.vpc_service_projects)
-  project    = var.project_id
+  project    = google_project.project.project_id
   region     = var.east_region
   subnetwork = google_compute_subnetwork.east-public.name
   role       = "roles/compute.networkUser"
@@ -33,7 +33,7 @@ resource "google_compute_subnetwork_iam_member" "projects-east-public" {
 
 resource "google_compute_subnetwork_iam_member" "projects-west-private" {
   for_each   = toset(var.vpc_service_projects)
-  project    = var.project_id
+  project    = google_project.project.project_id
   region     = var.west_region
   subnetwork = google_compute_subnetwork.west-private.name
   role       = "roles/compute.networkUser"
@@ -42,7 +42,7 @@ resource "google_compute_subnetwork_iam_member" "projects-west-private" {
 
 resource "google_compute_subnetwork_iam_member" "projects-west-public" {
   for_each   = toset(var.vpc_service_projects)
-  project    = var.project_id
+  project    = google_project.project.project_id
   region     = var.west_region
   subnetwork = google_compute_subnetwork.west-public.name
   role       = "roles/compute.networkUser"
