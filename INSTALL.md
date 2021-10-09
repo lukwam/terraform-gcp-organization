@@ -85,8 +85,8 @@ Before you can run this config, you need to set some initial IAM policy bindings
 1. Verify the resources that Terraform plans to create, including an Org Folder called `Production` and a project called `exampletest-terraform`, and then type `yes` and return to apply.
 1. To create the Cloud Identity Groups that will be used to manage the Organization level permissions, run another targeted apply: `terraform apply -target module.org.google_cloud_identity_group.groups`
 1. Verify the resources that Terraform plans to create and then type `yes` and return to apply.
-1. Now, we can apply the rest of the Terraform config to create the other Org Level resources and the Logging and Monitoring projects.
-
+1. Now, we can apply the rest of the Terraform config to create the other Org Level resources and the Logging and Monitoring projects. `terraform apply`
+1. If you get errros about Project notFound for some of the projects, you can run the command again. `terraform apply`
 
 
 

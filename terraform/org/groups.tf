@@ -48,3 +48,17 @@ resource "google_cloud_identity_group" "groups" {
     "cloudidentity.googleapis.com/groups.discussion_forum" = ""
   }
 }
+
+resource "google_cloud_identity_group_membership" "admin" {
+  provider = google.sa
+  for_each = var.groups
+  group    = google_cloud_identity_group.groups[each.key].id
+
+  preferred_member_key {
+    id = "${var.admin_user}@${var.domain_name}"
+  }
+
+  roles {
+      name = "MEMBER"
+  }
+}
