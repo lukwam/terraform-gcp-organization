@@ -90,12 +90,12 @@ Before you can run this config, you need to set some initial IAM policy bindings
 
 ## Enabling the Security Command Center
 
-One of the steps that can not currently be done with Terraform is to enable the Security Command Center. 
+One of the steps that can not currently be done with Terraform is to enable the Security Command Center.
 
 To do so, follow these steps:
 
 1. Go to: https://console.cloud.google.com/security/command-center and select your new organization.
-1. Click `NEXT` to select the free version of Security Command Center. 
+1. Click `NEXT` to select the free version of Security Command Center.
 1. Click `NEXT` to enable Security Health Analytics.
 1. Instead of following the instructions on the "Grant Permissions" page, go back to your Cloud Shell and uncomment the three commented IAM bindings in the `terraform/org/iam_policy.tf` file.
 1. Run `terraform apply` to add the three additional permissions for the Security Command Center to the Org IAM Policy.
@@ -113,7 +113,7 @@ Now that we have our Org setup and we've created the Terraform, Logging, and Mon
 
 ## Setting Up Monitoring
 
-Although there is a beta API available for managing Cloud Logging [metrics scopes](https://cloud.google.com/monitoring/settings/manage-api), there is not currently a Terraform resource for this. Metrics scopes are how you create a Stackdriver workspace and how you add additional projects to that workspace. 
+Although there is a beta API available for managing Cloud Logging [metrics scopes](https://cloud.google.com/monitoring/settings/manage-api), there is not currently a Terraform resource for this. Metrics scopes are how you create a Stackdriver workspace and how you add additional projects to that workspace.
 
 To setup a Monitoring workspace and to add the other projects to that workspace:
 
@@ -131,3 +131,19 @@ This Terraform config does not handle some of the Networking setup, including:
 To setup connectivity, egress, security controls and ingress:
 
 1. Follow the directions in the Cloud Setup checklist for Networking: https://console.cloud.google.com/cloud-setup/networking
+
+## Moving Terraform State to GCS Bucket
+
+Now that you have a fully deployed Terraform config with a Terraform project and a Bucket to store the Terraform state, you can update the `backend` config in the `terraform/main.tf` to reflect your new `terraform_bucket`, which is one of the outputs from applying your terraform config.
+
+Example `backend` config:
+
+```
+  backend "gcs" {
+    bucket = "exampletest-terraform-tf"
+  }
+```
+
+1. Update the `terraform/main.tf` to uncomment the `backend` config and update the `bucket` to your `terraform_bucket` output value.
+1. Run `terraform init` to change the backend.
+1. When asked `Do you want to copy existing state to the new backend?`, enter `yes` and return to copy the state to your bucket.

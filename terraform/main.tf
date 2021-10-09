@@ -1,29 +1,21 @@
 terraform {
   # backend "gcs" {
-  #   bucket = "lukwam-terraform"
+  #   bucket = "example-terraform-tf"
   # }
   required_providers {
     google = {
       source  = "hashicorp/google"
       version = "3.84.0"
     }
-    # google-beta = {
-    #   source  = "hashicorp/google-beta"
-    #   version = "3.84.0"
-    # }
   }
 }
 
 provider "google" {
   alias = "default"
-  # credentials = file(var.credentials_file)
-  # project     = var.terraform_project_id
 }
 
 provider "google" {
   alias = "sa"
-  # credentials = file(var.credentials_file)
-  # project     = var.terraform_project_id
   impersonate_service_account = "terraform@${local.tf_project_id}.iam.gserviceaccount.com"
 }
 
@@ -157,4 +149,7 @@ output "customer_id" {
 }
 output "organization_id" {
   value = module.org.organization_id
+}
+output "terraform_bucket" {
+  value = module.terraform-project.terraform_bucket
 }

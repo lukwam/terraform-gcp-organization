@@ -19,3 +19,7 @@ resource "google_storage_bucket_iam_policy" "terraform" {
   bucket = google_storage_bucket.terraform.name
   policy_data = data.google_iam_policy.terraform-bucket.policy_data
 }
+
+output "terraform_bucket" {
+  value = google_storage_bucket.terraform.name
+}
