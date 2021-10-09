@@ -1,6 +1,6 @@
 resource "google_secret_manager_secret" "service-account-key" {
   secret_id = "service-account-key"
-  project   = var.project_id
+  project   = google_project.project.project_id
   replication {
     automatic = true
   }

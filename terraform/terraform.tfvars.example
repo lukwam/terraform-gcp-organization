@@ -5,7 +5,4 @@ billing_account_display_name = "My Billing Account"
 admin_user                   = "admin"
 domain_name                  = "test.example.com"
 org_contact                  = "my.email@gmail.com"
-
-# Terraform project settings
-tf_project_id                = "my-terraform-project"
-tf_project_name              = "My Terraform Project"
+project_prefix               = "exampletest"
